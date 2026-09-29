@@ -5,11 +5,11 @@ Repositório: Beatrys-lira/oauth-pages-lab
 Revisão: 29/09/2026, baseada no código do commit 4530399e61b59dec431be1ed29e7a36286f18b41, nos arquivos 01–07 e nos testes manuais relatados.
 
 **Situação: revisão técnica registrada; aceitação final pendente.**
-Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Não há assinatura presumida.
+Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Identificação e assinatura digitada inseridas por solicitação da estudante; itens pendentes permanecem identificados.
 
 - [x] A aplicação usa pages.dev, com arquivos estáticos e Functions na mesma origem.
 - [x] Publicação por integração com GitHub, conforme registro de configuração.
-- [ ] Confirmar pessoalmente que a equipe não instalou nem executou Node.js, npm, npx ou Wrangler.
+- [ ] Confirmar pessoalmente que a estudante não instalou nem executou Node.js, npm, npx ou Wrangler.
 - [x] Cada provedor possui callback próprio e exato, registrado nos arquivos 02 e 03.
 - [x] Os pedidos de autorização usam response_type=code e PKCE S256, conforme código e evidências 05–06.
 - [x] Client Secrets são obtidos do ambiente e utilizados no servidor, sem literais no middleware revisado. O GitHub também exige autenticação do aplicativo na revogação.
@@ -25,7 +25,7 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [ ] A estudante confirma que consegue explicar por que os arquivos estáticos permanecem públicos.
 - [ ] Confirmar encerramento das sessões administrativas de Google, GitHub e Cloudflare no computador compartilhado, quando aplicável.
 - [ ] Confirmar remoção da cópia temporária do cookie e fechamento da janela privativa.
-- [ ] Confirmar no painel que Client Secrets continuam criptografados e definir responsável pela rotação.
+- [ ] Confirmar no painel que Client Secrets continuam criptografados ; responsável pela rotação identificado abaixo.
 
 ## Callbacks
 - Google: https://oauth-pages-lab-ec6.pages.dev/oauth/callback/google
@@ -40,13 +40,13 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 ## Explicação para apresentação
 HTML, CSS e JavaScript são arquivos públicos entregues ao navegador. A proteção dos dados depende das Functions: /api/me só entrega o perfil se o cookie corresponder a uma sessão válida e não expirada no D1. Ocultar o dashboard ou redirecionar a página não substitui essa validação no servidor.
 
-## Aceite e assinatura
-Preencher após resolver a pendência técnica e conferir as declarações pessoais acima.
+## Identificação e assinatura
 
-- Nome da estudante: ____________________
-- Outros integrantes, se aplicável: ____________________
-- Responsável pela rotação dos Client Secrets: ____________________
-- Data do aceite: ____________________
-- Assinatura(s): ____________________
+- Nome da estudante: Beatrys Belo
+- RA: 2026108406
+- Participação: trabalho realizado individualmente.
+- Responsável pela rotação dos Client Secrets: Beatrys Belo
+- Data: 29/09/2026
+- Assinatura digitada: Beatrys Belo
 
-A revisão não substitui a assinatura nem atesta declarações pessoais ainda não confirmadas.
+Assinatura digitada incluída a pedido da estudante. Os itens não marcados acima continuam pendentes; esta identificação não os declara concluídos.
