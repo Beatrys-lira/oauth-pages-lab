@@ -1,54 +1,21 @@
-:root {
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: #1c2e39;
-  background: #f4f1e9;
-  scroll-behavior: smooth;
-}
+:root { font-family: Arial, "Segoe UI", sans-serif; color: #1d3440; background: #f4f2ed; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { margin: 0; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button { font: inherit; }
-a:focus-visible, button:focus-visible { outline: 3px solid #df8e66; outline-offset: 3px; }
-.loading-screen { min-height: 100vh; display: grid; place-items: center; color: #57666b; font-size: 14px; letter-spacing: .04em; }
-
-/* Entrada */
-.login-screen { min-height: 100vh; padding: 30px; display: grid; place-items: center; background: #e8e6de; }
-.login-layout { width: min(1120px, 100%); min-height: 650px; display: grid; grid-template-columns: 1.08fr .92fr; background: #f9f7f0; box-shadow: 0 20px 50px #1c2e3917; }
-.login-story { padding: 38px 44px 35px; background: #1d3440; color: #f8f5ec; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-.login-story::after { content: ""; position: absolute; width: 330px; height: 330px; border: 1px solid #73909a50; border-radius: 50%; right: -146px; bottom: 90px; box-shadow: 0 0 0 44px #1d3440, 0 0 0 45px #73909a40, 0 0 0 91px #1d3440, 0 0 0 92px #73909a35; pointer-events: none; }
-.story-top { display: flex; gap: 16px; align-items: center; position: relative; z-index: 1; font-size: 11px; font-weight: 700; letter-spacing: .14em; line-height: 1.5; }
-.story-logo { font: 700 32px Georgia, serif; letter-spacing: -.09em; border-right: 1px solid #98afb5; padding-right: 16px; }
-.story-logo span { color: #ed9c70; }
-.story-body { position: relative; z-index: 1; max-width: 480px; padding: 50px 0; }
-.story-index, .panel-index, .panel-footer { font-size: 11px; font-weight: 700; letter-spacing: .17em; }
-.story-index { color: #eb9b6e; margin: 0 0 25px; }
-.story-body h1 { font: 400 clamp(40px, 4.4vw, 66px)/1.05 Georgia, "Times New Roman", serif; letter-spacing: -.055em; margin: 0 0 28px; }
-.story-body p:last-child { max-width: 420px; color: #c8d6d9; font-size: 16px; line-height: 1.7; }
-.story-bottom { border-top: 1px solid #879da45b; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 12px 25px; color: #bcccd0; font-size: 11px; font-weight: 700; letter-spacing: .13em; position: relative; z-index: 1; }
-.login-panel { padding: 39px 48px 32px; display: flex; flex-direction: column; justify-content: space-between; }
-.panel-index, .panel-footer { margin: 0; color: #718184; display: flex; justify-content: space-between; gap: 20px; }
-.panel-index span { color: #d07850; }
-.panel-content { width: min(100%, 390px); margin: 50px auto; }
-.eyebrow { margin: 0 0 10px; color: #c46e47; font-size: 11px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
-.panel-content h2 { margin: 0; font: 400 46px/1.12 Georgia, "Times New Roman", serif; letter-spacing: -.05em; color: #1d3440; }
-.intro { margin: 16px 0 30px; color: #687578; line-height: 1.65; }
-.login-status { margin: 0 0 16px; padding: 12px 0; border-top: 1px solid #d7ddd7; color: #536569; font-size: 13px; }
+.loading-screen, .login-screen { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.loading-screen { color: #64767a; }
+.login-card { width: min(440px, 100%); background: #fff; border: 1px solid #dadfdc; }
+.brand { display: flex; align-items: center; gap: 15px; padding: 22px 26px; background: #1d3440; color: #fff; font-size: 14px; font-weight: 700; }
+.brand strong { font: 700 29px Georgia, serif; letter-spacing: -.08em; }
+.brand strong span { color: #e6a17c; }
+.brand small { display: block; margin-top: 3px; color: #bbcbd0; font-size: 11px; font-weight: 400; }
+.card-content { padding: 36px 32px 38px; }
+h1 { margin: 0; font: 400 35px Georgia, serif; letter-spacing: -.04em; }
+.intro { margin: 12px 0 25px; color: #627478; line-height: 1.5; }
+.login-status { min-height: 18px; margin: 0 0 12px; color: #6a7a7d; font-size: 12px; }
 .login-actions { display: grid; gap: 11px; }
-.provider-button { display: flex; align-items: center; justify-content: space-between; min-height: 58px; padding: 13px 17px; background: transparent; border: 1px solid #9da9a5; color: #203741; font-weight: 700; text-decoration: none; transition: background .15s, border-color .15s; }
-.provider-button::after { content: "↗"; font-size: 20px; line-height: 1; font-weight: 400; }
-.provider-button:hover { background: #ebece5; border-color: #28424b; }
-.provider-button svg, .provider-monogram { width: 21px; height: 21px; flex: none; margin-right: 12px; }
-.provider-monogram { display: grid; place-items: center; border-radius: 50%; background: #203741; color: #fff; font-size: 9px; font-weight: 800; letter-spacing: -.04em; }
-.provider-button { justify-content: flex-start; }
-.provider-button::after { margin-left: auto; }
-.login-footnote { margin: 22px 0 0; color: #798583; font-size: 12px; line-height: 1.6; }
-.panel-footer { border-top: 1px solid #d7ddd7; padding-top: 20px; font-size: 10px; }
-.panel-footer span { color: #d07850; }
-
-@media (max-width: 760px) {
-  .login-screen { padding: 0; }.login-layout { min-height: 100vh; grid-template-columns: 1fr; }
-  .login-story { min-height: 310px; padding: 26px; }.story-body { padding: 34px 0 20px; }.story-body h1 { font-size: 39px; max-width: 500px; }.story-body p:last-child { font-size: 14px; margin-bottom: 0; }.story-bottom { display: none; }
-  .login-panel { min-height: 430px; padding: 27px; }.panel-content { margin: 42px auto; }.panel-content h2 { font-size: 37px; }
-}
-@media (prefers-reduced-motion: reduce) { .provider-button { transition: none; } }
+.provider-button { display: flex; align-items: center; gap: 13px; min-height: 52px; padding: 11px 16px; border: 1px solid #b9c5c5; color: #1d3440; background: #fff; font-weight: 700; text-decoration: none; }
+.provider-button:hover { background: #f4f2ed; border-color: #477580; }
+.provider-button svg { width: 20px; height: 20px; flex: none; }
+.provider-button:focus-visible { outline: 3px solid #e6a17c; outline-offset: 3px; }
+@media (max-width: 480px) { .login-screen { padding: 16px; } .card-content { padding: 30px 24px 32px; } }
