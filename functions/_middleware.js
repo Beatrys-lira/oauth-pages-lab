@@ -111,7 +111,7 @@ async function callback(request, env, provider) {
   return redirect('/dashboard.html', cookie('__Host-session', session, 28800));
 }
 
-async function me(request, env) {
+export async function me(request, env) {
   if (!env.DB) return json({ error: 'D1 não configurado' }, 503);
   const session = cookies(request)['__Host-session'];
   if (!session) return json({ authenticated: false }, 401);
@@ -129,13 +129,12 @@ export async function onRequest(context) {
   const { request, env } = context;
   const path = new URL(request.url).pathname;
   try {
-    if (path === '/api/me' && request.method === 'GET') return await me(request, env);
     if (path === '/oauth/logout' && request.method === 'POST') return await logout(request, env);
     const login = path.match(/^\/oauth\/login\/(google|github)$/);
     if (login && request.method === 'GET') return await start(request, env, login[1]);
     const cb = path.match(/^\/oauth\/callback\/(google|github)$/);
     if (cb && request.method === 'GET') return await callback(request, env, cb[1]);
-    if (path.startsWith('/oauth/') || path === '/api/me') return plain('Rota não encontrada', 404);
+    if (path.startsWith('/oauth/')) return plain('Rota não encontrada', 404);
     return context.next();
   } catch (error) {
     console.error('Falha de autenticação:', error.message);
