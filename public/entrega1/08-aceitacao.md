@@ -2,10 +2,10 @@
 
 Aplicação: https://oauth-pages-lab-ec6.pages.dev
 Repositório: Beatrys-lira/oauth-pages-lab
-Revisão: 29/09/2026, baseada no código do commit 4530399e61b59dec431be1ed29e7a36286f18b41, nos arquivos 01–07 e nos testes manuais relatados.
+Revisão: 29/09/2026, baseada no código de autenticação corrigido no commit af79a535c4416cc21de7afec36e2e9d38600ed2c, nos arquivos 01–07 e nos testes manuais relatados.
 
-**Situação: revisão técnica registrada; aceitação final pendente.**
-Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Identificação e assinatura digitada inseridas por solicitação da estudante; itens pendentes permanecem identificados.
+**Situação: seis testes manuais registrados e correção de revogação implementada; confirmação do login GitHub após a correção e verificações finais ainda pendentes.**
+Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Assinaturas digitadas registradas no arquivo e confirmadas na conversa; itens pendentes permanecem identificados.
 
 - [x] A aplicação usa pages.dev, com arquivos estáticos e Functions na mesma origem.
 - [x] Publicação por integração com GitHub, conforme registro de configuração.
@@ -15,7 +15,8 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [x] Client Secrets são obtidos do ambiente e utilizados no servidor, sem literais no middleware revisado. O GitHub também exige autenticação do aplicativo na revogação.
 - [x] O callback valida presença, prazo, provedor e state da transação antes de trocar o código; remove a transação antes de criar sessão. Os testes manuais de ausência, alteração e reutilização estão no arquivo 07. Expiração de transação foi verificada no código, não em um teste isolado com controle de tempo.
 - [x] A identidade Google é validada criptograficamente com RS256 e chave pública; há verificações de emissor, audiência, nonce, expiração, emissão, subject e email verificado antes da sessão.
-- [x] o GitHub consulta /user e tenta revogar /applications/{client_id}/grant antes da sessão, mas o código não verifica o status da revogação e ignora falhas de rede. Portanto, ainda não garante revogação bem-sucedida antes de criar a sessão.
+- [x] O GitHub consulta /user e exige HTTP 204 na revogação de /applications/{client_id}/grant antes de criar sessão. Falhas HTTP ou de rede interrompem o login.
+- [ ] Confirmar um novo login GitHub no site publicado após a correção do commit af79a53. O login anterior bem-sucedido não comprova a versão corrigida.
 - [x] O cookie de sessão gerado é opaco, Secure, HttpOnly, SameSite=Strict, Path=/ e sem atributo Domain.
 - [x] O D1 armazena o resumo SHA-256 do cookie de sessão, não seu valor bruto, conforme código.
 - [x] /api/me retorna o perfil local (id, nome, email, provedor, id no provedor e criação), sem tokens ou cookies.
@@ -25,7 +26,15 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [ ] A estudante confirma que consegue explicar por que os arquivos estáticos permanecem públicos.
 - [ ] Confirmar encerramento das sessões administrativas de Google, GitHub e Cloudflare no computador compartilhado, quando aplicável.
 - [ ] Confirmar remoção da cópia temporária do cookie e fechamento da janela privativa.
-- [ ] Confirmar no painel que Client Secrets continuam criptografados ; responsável pela rotação identificado abaixo.
+- [ ] Confirmar no painel que Client Secrets continuam criptografados; responsável pela rotação identificado abaixo.
+
+## Validação técnica da correção
+
+Oito cenários com respostas simuladas passaram: revogação 204; rejeições 400, 401, 403, 404 e 500; falha de rede; falha na consulta do perfil com tentativa de revogação preservada. Em caso de revogação não confirmada, githubIdentity() rejeita e o callback não prossegue à criação da sessão.
+
+Esses testes foram executados no ambiente da assistência com Node.js, sem instalação ou execução no computador da estudante. Não substituem a confirmação de um novo login real após o deploy.
+
+Os seis testes manuais anteriores e seus limites de evidência estão documentados em 07-testes-falha.md. Google, GitHub e logout tiveram sucesso relatado antes desta última correção.
 
 ## Callbacks
 - Google: https://oauth-pages-lab-ec6.pages.dev/oauth/callback/google
