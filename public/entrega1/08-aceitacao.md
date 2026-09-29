@@ -47,9 +47,8 @@ HTML, CSS e JavaScript são arquivos públicos entregues ao navegador. A proteç
 - Participação: atividade realizada em dupla; este site e esta entrega pertencem a Beatrys Belo.
 - Integrante da dupla: Pedro Alexandre Zanetti
 - RA do integrante: 2026108365
-- Assinatura de Pedro Alexandre Zanetti: pendente de revisão e confirmação pelo próprio integrante.
+- Assinatura de Pedro Alexandre Zanetti: Pedro Zanetti
 - Responsável pela rotação dos Client Secrets: Beatrys Belo
 - Data: 29/09/2026
 - Assinatura digitada: Beatrys Belo
 
-Assinatura digitada incluída a pedido da estudante. Os itens não marcados acima continuam pendentes; esta identificação não os declara concluídos.
