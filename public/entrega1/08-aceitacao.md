@@ -9,7 +9,7 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 
 - [x] A aplicação usa pages.dev, com arquivos estáticos e Functions na mesma origem.
 - [x] Publicação por integração com GitHub, conforme registro de configuração.
-- [ ] Confirmar pessoalmente que a estudante não instalou nem executou Node.js, npm, npx ou Wrangler.
+- [x] A estudante confirmou que não instalou nem executou Node.js, npm, npx ou Wrangler durante a atividade.
 - [x] Cada provedor possui callback próprio e exato, registrado nos arquivos 02 e 03.
 - [x] Os pedidos de autorização usam response_type=code e PKCE S256, conforme código e evidências 05–06.
 - [x] Client Secrets são obtidos do ambiente e utilizados no servidor, sem literais no middleware revisado. O GitHub também exige autenticação do aplicativo na revogação.
