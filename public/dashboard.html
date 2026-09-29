@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Mapa de carreira | Engenharia de Software</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <div id="loading" class="loading-screen" role="status">Consultando sua sessão...</div>
+  <div id="dashboard" class="dashboard" hidden>
+    <aside class="sidebar" aria-label="Navegação do painel">
+      <a class="sidebar-brand" href="#inicio"><span class="brand-mark small" aria-hidden="true">ES</span><span>Mapa de carreira<small>Engenharia de Software</small></span></a>
+      <nav class="sidebar-nav" aria-label="Seções">
+        <a href="#inicio">Visão geral</a>
+        <a href="#trilhas">Trilhas de carreira</a>
+        <a href="#roteiro">Seu roteiro</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#fontes">Fontes</a>
+      </nav>
+      <p class="sidebar-note">Explore caminhos e escolha um primeiro projeto. O painel não mede seu desempenho nem promete vagas.</p>
+    </aside>
+
+    <div class="dashboard-content">
+      <header class="topbar">
+        <span class="topbar-label">Painel do estudante</span>
+        <div class="topbar-right">
+          <div class="user-chip"><span id="avatar" class="avatar" aria-hidden="true"></span><span><strong id="user-name"></strong><small id="user-provider"></small></span></div>
+          <form action="/oauth/logout" method="post"><button class="logout-button" type="submit">Sair</button></form>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section id="inicio" class="hero" aria-labelledby="hero-title">
+          <div>
+            <p class="eyebrow light">Seu espaço de exploração</p>
+            <h1 id="hero-title">Olá, <span id="welcome-name"></span>. Qual caminho você quer explorar?</h1>
+            <p>Engenharia de Software abre diferentes possibilidades. Conheça as áreas, experimente projetos pequenos e descubra o que combina com você.</p>
+            <a class="hero-link" href="#trilhas">Explorar trilhas <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-art" aria-hidden="true"><span>{ }</span><i></i><b></b></div>
+        </section>
+
+        <section class="overview" aria-label="Resumo do painel">
+          <div class="overview-card"><span class="overview-icon purple" aria-hidden="true">◇</span><strong>6</strong><span>áreas para conhecer</span></div>
+          <div class="overview-card"><span class="overview-icon blue" aria-hidden="true">↗</span><strong>3</strong><span>passos para começar</span></div>
+          <div class="overview-card"><span class="overview-icon green" aria-hidden="true">▣</span><strong>4</strong><span>ideias de portfólio</span></div>
+        </section>
+
+        <section id="trilhas" class="section" aria-labelledby="trilhas-title">
+          <div class="section-heading"><div><p class="eyebrow">Explore possibilidades</p><h2 id="trilhas-title">Trilhas de carreira</h2><p>Uma visão inicial das atividades e habilidades de cada área.</p></div><span id="filter-count" class="section-count" role="status">6 trilhas</span></div>
+          <div class="filters" role="group" aria-label="Filtrar trilhas">
+            <button class="filter active" type="button" data-filter="todas" aria-pressed="true">Todas</button>
+            <button class="filter" type="button" data-filter="desenvolvimento" aria-pressed="false">Desenvolvimento</button>
+            <button class="filter" type="button" data-filter="qualidade" aria-pressed="false">Qualidade</button>
+            <button class="filter" type="button" data-filter="dados" aria-pressed="false">Dados</button>
+            <button class="filter" type="button" data-filter="infraestrutura" aria-pressed="false">Infraestrutura</button>
+          </div>
+          <div class="career-grid">
+            <article class="career-card" data-category="desenvolvimento"><div class="card-icon lilac" aria-hidden="true">⌘</div><p class="card-category">Desenvolvimento</p><h3>Front-end</h3><p>Cria interfaces e cuida da experiência de quem usa o produto.</p><div class="tags"><span>HTML e CSS</span><span>JavaScript</span><span>Acessibilidade</span></div><div class="card-project"><b>Para praticar</b><span>Construa uma página responsiva com navegação e estados de erro.</span></div></article>
+            <article class="career-card" data-category="desenvolvimento"><div class="card-icon sky" aria-hidden="true">{ }</div><p class="card-category">Desenvolvimento</p><h3>Back-end</h3><p>Constrói APIs, regras de negócio e integrações com bancos de dados.</p><div class="tags"><span>Lógica</span><span>APIs</span><span>SQL</span></div><div class="card-project"><b>Para praticar</b><span>Crie uma API simples com autenticação, dados e testes.</span></div></article>
+            <article class="career-card" data-category="qualidade"><div class="card-icon mint" aria-hidden="true">✓</div><p class="card-category">Qualidade</p><h3>QA e testes</h3><p>Planeja verificações, investiga defeitos e ajuda a tornar o software confiável.</p><div class="tags"><span>Casos de teste</span><span>Automação</span><span>Relatos de bugs</span></div><div class="card-project"><b>Para praticar</b><span>Documente cenários e automatize testes de uma API.</span></div></article>
+            <article class="career-card" data-category="dados"><div class="card-icon peach" aria-hidden="true">▥</div><p class="card-category">Dados</p><h3>Dados e análise</h3><p>Organiza dados, encontra padrões e comunica resultados úteis.</p><div class="tags"><span>SQL</span><span>Estatística</span><span>Visualização</span></div><div class="card-project"><b>Para praticar</b><span>Analise uma base pública e apresente um painel com conclusões.</span></div></article>
+            <article class="career-card" data-category="infraestrutura"><div class="card-icon lavender" aria-hidden="true">☁</div><p class="card-category">Infraestrutura</p><h3>Cloud e DevOps</h3><p>Organiza entregas, infraestrutura, observabilidade e operação de aplicações.</p><div class="tags"><span>Git</span><span>Deploy</span><span>Monitoramento</span></div><div class="card-project"><b>Para praticar</b><span>Publique uma aplicação com integração contínua e registros de erro.</span></div></article>
+            <article class="career-card" data-category="infraestrutura"><div class="card-icon sand" aria-hidden="true">♢</div><p class="card-category">Infraestrutura</p><h3>Segurança</h3><p>Analisa riscos e ajuda a proteger sistemas, identidades e dados.</p><div class="tags"><span>Fundamentos de redes</span><span>Autenticação</span><span>Riscos</span></div><div class="card-project"><b>Para praticar</b><span>Revise permissões e descreva ameaças de um projeto demonstrativo.</span></div></article>
+          </div>
+          <p class="source-note">As descrições resumem ocupações e campos de estudo; requisitos e oportunidades variam conforme a empresa e o país.</p>
+        </section>
+
+        <section id="roteiro" class="section" aria-labelledby="roteiro-title">
+          <div class="section-heading"><div><p class="eyebrow">Sem precisar decidir tudo hoje</p><h2 id="roteiro-title">Um roteiro para começar</h2><p>Três passos práticos para estudante ou recém-formado.</p></div></div>
+          <div class="steps"><article><span>01</span><h3>Explore</h3><p>Escolha uma área e entenda o trabalho do dia a dia. Converse com quem já atua nela.</p></article><article><span>02</span><h3>Construa</h3><p>Faça um projeto pequeno, explique suas decisões no README e registre como testou.</p></article><article><span>03</span><h3>Mostre</h3><p>Organize o portfólio, adapte o currículo e procure vagas de estágio ou início de carreira.</p></article></div>
+        </section>
+
+        <section id="portfolio" class="section" aria-labelledby="portfolio-title">
+          <div class="section-heading"><div><p class="eyebrow">Aprendizado na prática</p><h2 id="portfolio-title">Ideias para seu portfólio</h2><p>Use uma ideia como ponto de partida e documente o processo.</p></div></div>
+          <div class="portfolio-grid"><div><span>01</span><h3>App com login</h3><p>Fluxo de autenticação, sessão, logout e testes de falha.</p></div><div><span>02</span><h3>API com testes</h3><p>Rotas, banco, validação e casos automatizados.</p></div><div><span>03</span><h3>Painel de dados</h3><p>Dados públicos, gráficos claros e interpretação dos resultados.</p></div><div><span>04</span><h3>Site acessível</h3><p>Layout responsivo, teclado, contraste e estados da interface.</p></div></div>
+        </section>
+
+        <section id="fontes" class="section sources" aria-labelledby="fontes-title">
+          <div class="section-heading"><div><p class="eyebrow">Para continuar a pesquisa</p><h2 id="fontes-title">Fontes consultadas</h2><p>Perfis ocupacionais dos EUA ajudam a descrever atividades, não salários ou vagas no Brasil.</p></div></div>
+          <ul>
+            <li><a href="https://www.acm.org/education/curricula-recommendations" target="_blank" rel="noopener noreferrer">ACM — currículos de computação e Engenharia de Software ↗</a></li>
+            <li><a href="https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm" target="_blank" rel="noopener noreferrer">BLS — desenvolvimento de software e qualidade ↗</a></li>
+            <li><a href="https://www.bls.gov/ooh/math/data-scientists.htm" target="_blank" rel="noopener noreferrer">BLS — ciência de dados ↗</a></li>
+            <li><a href="https://www.bls.gov/ooh/computer-and-information-technology/information-security-analysts.htm" target="_blank" rel="noopener noreferrer">BLS — segurança da informação ↗</a></li>
+            <li><a href="https://planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm" target="_blank" rel="noopener noreferrer">Brasil — Lei do Estágio ↗</a></li>
+          </ul>
+        </section>
+        <footer class="footer">Mapa de carreira · Engenharia de Software</footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
