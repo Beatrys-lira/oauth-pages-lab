@@ -1,0 +1,5 @@
+Página inicial da OAuth App do GitHub:
+https://oauth-pages-lab-ec6.pages.dev/
+
+URL de retorno autorizada:
+https://oauth-pages-lab-ec6.pages.dev/oauth/callback/github
