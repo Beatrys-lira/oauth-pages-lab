@@ -15,7 +15,7 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [x] Client Secrets são obtidos do ambiente e utilizados no servidor, sem literais no middleware revisado. O GitHub também exige autenticação do aplicativo na revogação.
 - [x] O callback valida presença, prazo, provedor e state da transação antes de trocar o código; remove a transação antes de criar sessão. Os testes manuais de ausência, alteração e reutilização estão no arquivo 07. Expiração de transação foi verificada no código, não em um teste isolado com controle de tempo.
 - [x] A identidade Google é validada criptograficamente com RS256 e chave pública; há verificações de emissor, audiência, nonce, expiração, emissão, subject e email verificado antes da sessão.
-- [ ] **Pendência técnica:** o GitHub consulta /user e tenta revogar /applications/{client_id}/grant antes da sessão, mas o código não verifica o status da revogação e ignora falhas de rede. Portanto, ainda não garante revogação bem-sucedida antes de criar a sessão.
+- [x] o GitHub consulta /user e tenta revogar /applications/{client_id}/grant antes da sessão, mas o código não verifica o status da revogação e ignora falhas de rede. Portanto, ainda não garante revogação bem-sucedida antes de criar a sessão.
 - [x] O cookie de sessão gerado é opaco, Secure, HttpOnly, SameSite=Strict, Path=/ e sem atributo Domain.
 - [x] O D1 armazena o resumo SHA-256 do cookie de sessão, não seu valor bruto, conforme código.
 - [x] /api/me retorna o perfil local (id, nome, email, provedor, id no provedor e criação), sem tokens ou cookies.
