@@ -3,17 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Laboratório de Autenticação</title>
 </head>
-
 <body>
     <main>
         <h1>Laboratório de autenticação</h1>
-
-        <p id="status">
-            A sessão ainda não foi consultada.
-        </p>
+        <p id="status" role="status">Consultando sessão...</p>
+        <div id="login" hidden>
+            <a href="/oauth/login/google">Entrar com Google</a>
+            <a href="/oauth/login/github">Entrar com GitHub</a>
+        </div>
+        <div id="account" hidden>
+            <p id="identity"></p>
+            <form action="/oauth/logout" method="post"><button type="submit">Sair</button></form>
+        </div>
     </main>
+    <script>
+        async function session() {
+            const status = document.getElementById('status');
+            try {
+                const response = await fetch('/api/me', { credentials: 'same-origin', cache: 'no-store' });
+                const data = await response.json();
+                if (response.ok && data.authenticated) {
+                    status.textContent = 'Você está autenticado.';
+                    document.getElementById('identity').textContent = [data.user.name, data.user.email, data.user.provider].filter(Boolean).join(' · ');
+                    document.getElementById('account').hidden = false;
+                } else {
+                    status.textContent = 'Você não está autenticado.';
+                    document.getElementById('login').hidden = false;
+                }
+            } catch {
+                status.textContent = 'Não foi possível consultar a sessão.';
+                document.getElementById('login').hidden = false;
+            }
+        }
+        session();
+    </script>
 </body>
 </html>
