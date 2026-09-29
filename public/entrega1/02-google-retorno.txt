@@ -1,0 +1,2 @@
+URL de retorno autorizada no cliente OAuth Web do Google:
+https://oauth-pages-lab-ec6.pages.dev/oauth/callback/google
