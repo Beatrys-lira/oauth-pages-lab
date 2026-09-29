@@ -107,7 +107,7 @@ async function callback(request, env, provider) {
   const issuer = provider === 'google' ? 'https://accounts.google.com' : 'https://github.com';
   await authStep('D1_SESSAO', () => env.DB.prepare('INSERT INTO sessions (id_hash,issuer,subject,email,display_name,expires_at,created_at) VALUES (?,?,?,?,?,?,?)')
     .bind(sessionHash, issuer, identity.id, identity.email, identity.name, now() + 28800, now()).run());
-  return redirect('/', cookie('__Host-session', session, 28800));
+  return redirect('/dashboard.html', cookie('__Host-session', session, 28800));
 }
 
 async function me(request, env) {
