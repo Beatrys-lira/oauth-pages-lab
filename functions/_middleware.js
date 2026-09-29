@@ -7,7 +7,7 @@ const random = () => b64url(crypto.getRandomValues(new Uint8Array(32)));
 const b64url = bytes => btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
 const decode = value => Uint8Array.from(atob(value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - value.length % 4) % 4)), c => c.charCodeAt(0));
 const hash = async value => b64url(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(value))));
-const cookie = (name, value, age) => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${age}`;
+const cookie = (name, value, age, sameSite = 'Strict') => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=${sameSite}; Max-Age=${age}`;
 const cookies = request => Object.fromEntries((request.headers.get('Cookie') || '').split(';').map(x => x.trim().split('=').slice(0, 2)).filter(x => x.length === 2));
 const plain = (message, status = 400) => new Response(message, { status, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' } });
 
@@ -41,7 +41,7 @@ async function start(request, env, provider) {
   url.searchParams.set('code_challenge', challenge);
   url.searchParams.set('code_challenge_method', 'S256');
   if (provider === 'google') { url.searchParams.set('scope', 'openid email profile'); url.searchParams.set('nonce', nonce); }
-  return new Response(null, { status: 302, headers: { Location: url.toString(), 'Set-Cookie': cookie('oauth_tx', transaction, 600), 'Cache-Control': 'no-store' } });
+  return new Response(null, { status: 302, headers: { Location: url.toString(), 'Set-Cookie': cookie('__Host-oauth-tx', transaction, 600, 'Lax'), 'Cache-Control': 'no-store' } });
 }
 async function exchange(provider, cfg, code, verifier) {
   const params = new URLSearchParams({ client_id: cfg.client, client_secret: cfg.secret, code, redirect_uri: cfg.callback, code_verifier: verifier, grant_type: 'authorization_code' });
@@ -91,7 +91,7 @@ async function authStep(code, action) {
 async function callback(request, env, provider) {
   const cfg = config(env, provider);
   const url = new URL(request.url), code = url.searchParams.get('code'), state = url.searchParams.get('state');
-  const tx = cookies(request).oauth_tx;
+  const tx = cookies(request)['__Host-oauth-tx'];
   if (url.searchParams.has('error') || !code || !state || !tx) return plain('Autenticação cancelada ou transação inválida');
   await authStep('D1_TABELAS', () => schema(env.DB));
   const txHash = await hash(tx);
@@ -106,13 +106,13 @@ async function callback(request, env, provider) {
   const session = random(), sessionHash = await hash(session);
   const issuer = provider === 'google' ? 'https://accounts.google.com' : 'https://github.com';
   await authStep('D1_SESSAO', () => env.DB.prepare('INSERT INTO sessions (id_hash,issuer,subject,email,display_name,expires_at,created_at) VALUES (?,?,?,?,?,?,?)')
-    .bind(sessionHash, issuer, identity.id, identity.email, identity.name, now() + 604800, now()).run());
-  return redirect('/', cookie('session', session, 604800));
+    .bind(sessionHash, issuer, identity.id, identity.email, identity.name, now() + 28800, now()).run());
+  return redirect('/', cookie('__Host-session', session, 28800));
 }
 
 async function me(request, env) {
   if (!env.DB) return json({ error: 'D1 não configurado' }, 503);
-  const session = cookies(request).session;
+  const session = cookies(request)['__Host-session'];
   if (!session) return json({ authenticated: false }, 401);
   await schema(env.DB);
   const user = await env.DB.prepare("SELECT u.id,u.name,u.email,u.provider,u.provider_user_id,u.created_at FROM sessions s JOIN users u ON u.provider_user_id=s.subject AND ((s.issuer='https://accounts.google.com' AND u.provider='google') OR (s.issuer='https://github.com' AND u.provider='github')) WHERE s.id_hash=? AND s.expires_at>?").bind(await hash(session), now()).first();
@@ -120,9 +120,9 @@ async function me(request, env) {
 }
 async function logout(request, env) {
   if (request.headers.get('Origin') !== BASE) return plain('Origem inválida', 403);
-  const session = cookies(request).session;
+  const session = cookies(request)['__Host-session'];
   if (session && env.DB) await env.DB.prepare('DELETE FROM sessions WHERE id_hash=?').bind(await hash(session)).run();
-  return redirect('/', cookie('session', '', 0));
+  return redirect('/', cookie('__Host-session', '', 0));
 }
 export async function onRequest(context) {
   const { request, env } = context;
