@@ -1,58 +1,55 @@
 # Testes de falha de autenticação
 
-Status: em andamento. Os seis casos obrigatórios abaixo ainda não foram executados e não estão marcados como aprovados.
-
 Aplicação: https://oauth-pages-lab-ec6.pages.dev
+Data: 29/09/2026.
+Execução: manual, no Chrome da estudante, com orientação. Os resultados abaixo distinguem capturas examinadas e respostas transcritas pela estudante. Não representam execução automatizada independente.
 
-## Verificação complementar: logout
+## 1 — Retorno sem cookie temporário
+- **Preparação:** iniciar login com GitHub na janela comum; copiar a autorização para uma janela anônima nova, sem o cookie temporário do projeto.
+- **Pedido:** GET /oauth/callback/github após autorizar nessa janela.
+- **Esperado:** recusar o retorno e não criar sessão.
+- **Observado:** a estudante relatou “Autenticação cancelada ou transação inválida”. A continuação da conversa registrou a verificação de authenticated:false na janela anônima.
+- **Evidência:** relato da execução e confirmação dos prints na conversa. Status HTTP desse callback não transcrito.
 
-- **Preparação:** a estudante foi orientada a concluir o login com GitHub, entrar no dashboard e clicar em Sair.
-- **Pedido enviado:** após a saída, GET /api/me na mesma janela do navegador.
-- **Resultado esperado:** HTTP 401 e corpo `{"authenticated":false}`.
-- **Resultado observado:** em 29/09/2026, a estudante enviou a resposta `{"authenticated":false}` e uma captura do Chrome DevTools mostrando a requisição `me` com status 401. A consulta após a saída foi confirmada; este registro não comprova os casos de expiração ou reutilização do cookie revogado.
+## 2 — State alterado
+- **Preparação:** iniciar nova transação Google na mesma janela de teste e alterar um caractere de state no Location do início do login, antes de autorizar.
+- **Pedido:** GET /oauth/callback/google com state alterado.
+- **Esperado:** recusar antes da troca do código e não criar sessão.
+- **Observado:** “Transação expirada ou inválida” e consulta posterior com `{"authenticated":false}`.
+- **Evidência:** capturas de 29/09/2026 às 15:39–15:40 examinadas, contendo a mensagem e o JSON. A preparação foi relatada pela estudante; os prints isolados não distinguem alteração de state de expiração. A inspeção do código confirma que a comparação ocorre antes de exchange().
 
-## Caso 1: retorno sem cookie temporário
+## 3 — Reutilização da transação
+- **Preparação:** concluir login Google normalmente e copiar do Network a URL do callback já utilizado.
+- **Pedido:** abrir novamente esse callback na mesma janela.
+- **Esperado:** recusar a transação consumida, sem criar nova sessão.
+- **Observado:** a estudante relatou “Transação expirada ou inválida” após seguir a orientação de reutilização.
+- **Evidência:** mensagem transcrita na conversa às 16:06. Não houve contagem de sessões no D1; a rejeição foi observada, e a ausência de uma nova inserção é sustentada pelo fluxo do código. A sessão original pode permanecer ativa.
 
-- **Preparação prevista:** iniciar login em uma janela comum; abrir a URL de autorização em janela privativa sem __Host-oauth-tx e concluir o fluxo nela.
-- **Pedido previsto:** retorno do provedor para /oauth/callback/github ou /oauth/callback/google, sem o cookie temporário.
-- **Resultado esperado:** rejeitar o retorno sem criar sessão; /api/me deve responder 401.
-- **Resultado observado:** pendente de execução.
+## 4 — Sessão expirada
+- **Preparação orientada:** com login ativo, executar no Console D1 `UPDATE sessions SET expires_at = 0;`. O comando expira todas as sessões do laboratório, sem excluir usuários.
+- **Pedido:** GET /api/me na mesma janela.
+- **Esperado:** HTTP 401.
+- **Observado:** a estudante enviou `{"authenticated":false}` e transcreveu a linha `me | 401`.
+- **Evidência:** respostas na conversa às 16:09–16:10. A execução SQL não foi capturada; o registro se baseia na sequência guiada e no resultado informado.
 
-## Caso 2: state alterado
+## 5 — Origem inválida no logout
+- **Preparação:** manter login ativo no projeto e abrir https://example.com em outra aba da mesma janela.
+- **Pedido:** POST https://oauth-pages-lab-ec6.pages.dev/oauth/logout, com Origin https://example.com e credentials:include.
+- **Esperado:** HTTP 403 e sessão original preservada.
+- **Observado:** Console transcrito pela estudante mostrou POST com 403 (Forbidden), acompanhado de bloqueio CORS. Depois, /api/me retornou authenticated:true.
+- **Evidência:** erro transcrito às 18:55 e resposta autenticada às 18:56. Dados pessoais do perfil foram omitidos.
+- **Interpretação:** o 403 e a sessão preservada sustentam o resultado. O aviso CORS isoladamente não provaria a validação de Origin. SameSite também pode impedir o envio do cookie entre sites.
 
-- **Preparação prevista:** iniciar uma nova transação e alterar um caractere do parâmetro state na URL de autorização antes de prosseguir.
-- **Pedido previsto:** retorno do provedor com state diferente do registrado na transação.
-- **Resultado esperado:** rejeitar o retorno antes da troca do código, sem criar sessão.
-- **Resultado observado:** pendente de execução.
+## 6 — Reutilização do cookie revogado
+- **Preparação:** copiar temporariamente o cookie de uma sessão própria, clicar em Sair e restaurar o mesmo valor no navegador, sem novo login.
+- **Pedido:** GET /api/me após restaurar o cookie.
+- **Esperado:** HTTP 401 e authenticated:false.
+- **Observado:** captura mostrou __Host-session presente com Secure, HttpOnly, Path=/ e SameSite=Strict. A estudante enviou `{"authenticated":false}`; captura posterior mostrou a requisição me com status 401, iniciada por login.js.
+- **Evidência:** capturas examinadas às 19:03 e 19:05 e JSON transcrito. A identidade do valor restaurado com o anterior ao logout depende do procedimento relatado; o valor não é reproduzido.
+- **Limpeza:** orientada a apagar o cookie restaurado e sua cópia temporária; confirmação pessoal pendente.
 
-## Caso 3: reutilização da transação
+## Verificação complementar — Logout normal
+Após o logout, /api/me retornou authenticated:false e a captura do Network mostrou 401. Google e GitHub também tiveram login bem-sucedido relatado durante a execução do laboratório.
 
-- **Preparação prevista:** concluir um login e localizar a requisição de callback no Network.
-- **Pedido previsto:** abrir novamente a mesma URL de callback, sem guardar seu conteúdo na evidência.
-- **Resultado esperado:** rejeitar a transação já consumida; não criar nova sessão.
-- **Resultado observado:** pendente de execução.
-
-## Caso 4: sessão expirada
-
-- **Preparação prevista:** criar uma sessão de teste e executar no console D1 `UPDATE sessions SET expires_at = 0;`.
-- **Pedido previsto:** GET /api/me após a alteração.
-- **Resultado esperado:** HTTP 401.
-- **Resultado observado:** pendente de execução.
-
-## Caso 5: origem inválida na saída
-
-- **Preparação prevista:** manter uma sessão válida no site e iniciar a tentativa de logout a partir de outra origem.
-- **Pedido previsto:** POST /oauth/logout com origem diferente da aplicação.
-- **Resultado esperado:** rejeitar a operação e manter a sessão original válida.
-- **Resultado observado:** pendente de execução.
-
-## Caso 6: reutilização do cookie revogado
-
-- **Preparação prevista:** conservar temporariamente o cookie de uma sessão exclusiva de teste, executar o logout e restaurar esse mesmo cookie.
-- **Pedido previsto:** GET /api/me usando o cookie revogado.
-- **Resultado esperado:** HTTP 401, pois a sessão foi removida do D1.
-- **Resultado observado:** pendente de execução.
-
-## Tratamento das evidências
-
-Não incluir URLs completas de autorização ou callback com valores transitórios, cookies, códigos, tokens, state, nonce, code_challenge ou segredos. Substituir valores sensíveis por [REMOVIDO].
+## Proteção das evidências
+Não foram incluídos neste documento cookies, códigos, tokens, segredos, valores de state, nonce, code_challenge ou URLs transitórias completas. Os arquivos 05 e 06 mantêm as transcrições e prints saneados do início dos logins. Este arquivo contém o registro textual dos testes de falha; não incorpora capturas brutas com credenciais.
