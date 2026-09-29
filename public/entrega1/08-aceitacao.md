@@ -23,10 +23,10 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [x] Logout valida Origin antes de excluir a sessão e expirar o cookie; tentativa de outra origem recebeu 403 e preservou a sessão no teste manual.
 - [x] O teste guiado com cookie restaurado após logout retornou authenticated:false e 401, com os limites de evidência descritos em 07.
 - [ ] Confirmar saneamento completo do histórico Git, registros de execução e armazenamento do navegador. A revisão do middleware e destes documentos não equivale a uma auditoria completa desses locais.
-- [ ] A estudante confirma que consegue explicar por que os arquivos estáticos permanecem públicos.
-- [ ] Confirmar encerramento das sessões administrativas de Google, GitHub e Cloudflare no computador compartilhado, quando aplicável.
-- [ ] Confirmar remoção da cópia temporária do cookie e fechamento da janela privativa.
-- [ ] Confirmar no painel que Client Secrets continuam criptografados; responsável pela rotação identificado abaixo.
+- [x] A estudante confirmou que consegue explicar por que os arquivos estáticos permanecem públicos.
+- [x] Encerramento das sessões administrativas no computador compartilhado, quando aplicável, confirmado pela estudante.
+- [x] Remoção da cópia temporária do cookie e fechamento da janela privativa confirmados pela estudante.
+- [x] A estudante confirmou que os Client Secrets permanecem criptografados no painel; responsável pela rotação identificado abaixo.
 
 ## Validação técnica da correção
 
@@ -48,6 +48,10 @@ Os seis testes manuais anteriores e seus limites de evidência estão documentad
 
 ## Explicação para apresentação
 HTML, CSS e JavaScript são arquivos públicos entregues ao navegador. A proteção dos dados depende das Functions: /api/me só entrega o perfil se o cookie corresponder a uma sessão válida e não expirada no D1. Ocultar o dashboard ou redirecionar a página não substitui essa validação no servidor.
+
+## Confirmações pessoais
+
+Os itens pessoais marcados acima foram confirmados pela estudante em 29/09/2026. Essa confirmação não constitui auditoria independente do histórico Git ou dos registros de execução.
 
 ## Identificação e assinatura
 
