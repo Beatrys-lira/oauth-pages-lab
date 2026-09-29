@@ -84,24 +84,30 @@ async function githubIdentity(token, cfg) {
     }).catch(() => {});
   }
 }
+async function authStep(code, action) {
+  try { return await action(); }
+  catch (error) { error.authStage = code; throw error; }
+}
 async function callback(request, env, provider) {
   const cfg = config(env, provider);
   const url = new URL(request.url), code = url.searchParams.get('code'), state = url.searchParams.get('state');
   const tx = cookies(request).oauth_tx;
   if (url.searchParams.has('error') || !code || !state || !tx) return plain('Autenticação cancelada ou transação inválida');
-  await schema(env.DB);
-  const record = await env.DB.prepare('SELECT * FROM oauth_transactions WHERE id_hash=?').bind(await hash(tx)).first();
+  await authStep('D1_TABELAS', () => schema(env.DB));
+  const txHash = await hash(tx);
+  const record = await authStep('D1_TRANSACAO', () => env.DB.prepare('SELECT * FROM oauth_transactions WHERE id_hash=?').bind(txHash).first());
   if (!record || record.provider !== provider || record.expires_at <= now() || record.state_hash !== await hash(state)) return plain('Transação expirada ou inválida');
-  await env.DB.prepare('DELETE FROM oauth_transactions WHERE id_hash=?').bind(await hash(tx)).run();
-  const tokens = await exchange(provider, cfg, code, record.code_verifier);
-  const identity = provider === 'google' ? await googleIdentity(tokens.id_token, cfg.client, record.nonce) : await githubIdentity(tokens.access_token, cfg);
-  await env.DB.prepare('INSERT INTO users (name,email,provider,provider_user_id,created_at) VALUES (?,?,?,?,?) ON CONFLICT(provider,provider_user_id) DO UPDATE SET name=excluded.name,email=excluded.email')
-    .bind(identity.name, identity.email, provider, identity.id, now()).run();
-  const user = await env.DB.prepare('SELECT id FROM users WHERE provider=? AND provider_user_id=?').bind(provider, identity.id).first();
-  const session = random();
-  await env.DB.prepare('INSERT INTO sessions (id_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').bind(await hash(session), user.id, now() + 604800, now()).run();
+  await authStep('D1_EXCLUIR_TRANSACAO', () => env.DB.prepare('DELETE FROM oauth_transactions WHERE id_hash=?').bind(txHash).run());
+  const tokens = await authStep('TROCA_CODIGO', () => exchange(provider, cfg, code, record.code_verifier));
+  const identity = await authStep('IDENTIDADE', () => provider === 'google' ? googleIdentity(tokens.id_token, cfg.client, record.nonce) : githubIdentity(tokens.access_token, cfg));
+  await authStep('D1_USUARIO', () => env.DB.prepare('INSERT INTO users (name,email,provider,provider_user_id,created_at) VALUES (?,?,?,?,?) ON CONFLICT(provider,provider_user_id) DO UPDATE SET name=excluded.name,email=excluded.email')
+    .bind(identity.name, identity.email, provider, identity.id, now()).run());
+  const user = await authStep('D1_CONSULTAR_USUARIO', () => env.DB.prepare('SELECT id FROM users WHERE provider=? AND provider_user_id=?').bind(provider, identity.id).first());
+  const session = random(), sessionHash = await hash(session);
+  await authStep('D1_SESSAO', () => env.DB.prepare('INSERT INTO sessions (id_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').bind(sessionHash, user.id, now() + 604800, now()).run());
   return redirect('/', cookie('session', session, 604800));
 }
+
 async function me(request, env) {
   if (!env.DB) return json({ error: 'D1 não configurado' }, 503);
   const session = cookies(request).session;
@@ -130,6 +136,6 @@ export async function onRequest(context) {
     return context.next();
   } catch (error) {
     console.error('Falha de autenticação:', error.message);
-    return plain('Não foi possível concluir a autenticação. Verifique a configuração e tente novamente.', 503);
+    return plain(`Não foi possível concluir a autenticação. Código: ${error.authStage || 'GERAL'}.`, 503);
   }
 }
