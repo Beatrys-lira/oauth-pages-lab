@@ -4,8 +4,8 @@ Aplicação: https://oauth-pages-lab-ec6.pages.dev
 Repositório: Beatrys-lira/oauth-pages-lab
 Revisão: 29/09/2026, baseada no código de autenticação corrigido no commit af79a535c4416cc21de7afec36e2e9d38600ed2c, nos arquivos 01–07 e nos testes manuais relatados.
 
-**Situação: seis testes manuais registrados e correção de revogação implementada; confirmação do login GitHub após a correção e verificações finais ainda pendentes.**
-Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Assinaturas digitadas registradas no arquivo e confirmadas na conversa; itens pendentes permanecem identificados.
+**Situação: checklist concluído com base na revisão técnica, testes registrados e confirmações finais da estudante em 29/09/2026.**
+Marcas [x] indicam suporte nas evidências ou no código, conforme a observação. Marcas [ ] exigem confirmação ou correção. Assinaturas digitadas registradas no arquivo e confirmadas na conversa; confirmações pessoais estão identificadas.
 
 - [x] A aplicação usa pages.dev, com arquivos estáticos e Functions na mesma origem.
 - [x] Publicação por integração com GitHub, conforme registro de configuração.
@@ -16,13 +16,13 @@ Marcas [x] indicam suporte nas evidências ou no código, conforme a observaçã
 - [x] O callback valida presença, prazo, provedor e state da transação antes de trocar o código; remove a transação antes de criar sessão. Os testes manuais de ausência, alteração e reutilização estão no arquivo 07. Expiração de transação foi verificada no código, não em um teste isolado com controle de tempo.
 - [x] A identidade Google é validada criptograficamente com RS256 e chave pública; há verificações de emissor, audiência, nonce, expiração, emissão, subject e email verificado antes da sessão.
 - [x] O GitHub consulta /user e exige HTTP 204 na revogação de /applications/{client_id}/grant antes de criar sessão. Falhas HTTP ou de rede interrompem o login.
-- [ ] Confirmar um novo login GitHub no site publicado após a correção do commit af79a53. O login anterior bem-sucedido não comprova a versão corrigida.
+- [x] A estudante confirmou o login GitHub no site após a correção de revogação do commit af79a53.
 - [x] O cookie de sessão gerado é opaco, Secure, HttpOnly, SameSite=Strict, Path=/ e sem atributo Domain.
 - [x] O D1 armazena o resumo SHA-256 do cookie de sessão, não seu valor bruto, conforme código.
 - [x] /api/me retorna o perfil local (id, nome, email, provedor, id no provedor e criação), sem tokens ou cookies.
 - [x] Logout valida Origin antes de excluir a sessão e expirar o cookie; tentativa de outra origem recebeu 403 e preservou a sessão no teste manual.
 - [x] O teste guiado com cookie restaurado após logout retornou authenticated:false e 401, com os limites de evidência descritos em 07.
-- [ ] Confirmar saneamento completo do histórico Git, registros de execução e armazenamento do navegador. A revisão do middleware e destes documentos não equivale a uma auditoria completa desses locais.
+- [x] A estudante confirmou a conferência de credenciais no histórico Git, registros e armazenamento do navegador. Confirmação manual da estudante; não se trata de auditoria independente da assistência.
 - [x] A estudante confirmou que consegue explicar por que os arquivos estáticos permanecem públicos.
 - [x] Encerramento das sessões administrativas no computador compartilhado, quando aplicável, confirmado pela estudante.
 - [x] Remoção da cópia temporária do cookie e fechamento da janela privativa confirmados pela estudante.
@@ -51,7 +51,7 @@ HTML, CSS e JavaScript são arquivos públicos entregues ao navegador. A proteç
 
 ## Confirmações pessoais
 
-Os itens pessoais marcados acima foram confirmados pela estudante em 29/09/2026. Essa confirmação não constitui auditoria independente do histórico Git ou dos registros de execução.
+Os itens pessoais marcados acima foram confirmados pela estudante em 29/09/2026. A estudante também confirmou as verificações finais e o login GitHub após a correção. Essas confirmações não constituem auditoria independente da assistência.
 
 ## Identificação e assinatura
 
