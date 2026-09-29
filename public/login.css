@@ -38,7 +38,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #df8e66; outline-offs
 .provider-button { display: flex; align-items: center; justify-content: space-between; min-height: 58px; padding: 13px 17px; background: transparent; border: 1px solid #9da9a5; color: #203741; font-weight: 700; text-decoration: none; transition: background .15s, border-color .15s; }
 .provider-button::after { content: "↗"; font-size: 20px; line-height: 1; font-weight: 400; }
 .provider-button:hover { background: #ebece5; border-color: #28424b; }
-.provider-button svg { width: 21px; height: 21px; flex: none; margin-right: 12px; }
+.provider-button svg, .provider-monogram { width: 21px; height: 21px; flex: none; margin-right: 12px; }
+.provider-monogram { display: grid; place-items: center; border-radius: 50%; background: #203741; color: #fff; font-size: 9px; font-weight: 800; letter-spacing: -.04em; }
 .provider-button { justify-content: flex-start; }
 .provider-button::after { margin-left: auto; }
 .login-footnote { margin: 22px 0 0; color: #798583; font-size: 12px; line-height: 1.6; }
