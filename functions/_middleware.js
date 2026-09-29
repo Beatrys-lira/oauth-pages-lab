@@ -79,9 +79,10 @@ async function githubIdentity(token, cfg) {
     if (!Number.isSafeInteger(profile.id)) throw new Error('ID GitHub inválido');
     return { id: String(profile.id), name: profile.name || profile.login, email: profile.email || null };
   } finally {
-    await fetch(`https://api.github.com/applications/${encodeURIComponent(cfg.client)}/grant`, {
+    const revocation = await fetch(`https://api.github.com/applications/${encodeURIComponent(cfg.client)}/grant`, {
       method: 'DELETE', headers: { Authorization: `Basic ${btoa(`${cfg.client}:${cfg.secret}`)}`, Accept: 'application/vnd.github+json', 'User-Agent': 'oauth-pages-lab', 'Content-Type': 'application/json' }, body: JSON.stringify({ access_token: token })
-    }).catch(() => {});
+    });
+    if (revocation.status !== 204) throw new Error('Revogação da autorização GitHub não confirmada');
   }
 }
 async function authStep(code, action) {
