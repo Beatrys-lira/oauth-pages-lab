@@ -44,7 +44,10 @@ HTML, CSS e JavaScript são arquivos públicos entregues ao navegador. A proteç
 
 - Nome da estudante: Beatrys Belo
 - RA: 2026108406
-- Participação: trabalho realizado individualmente.
+- Participação: atividade realizada em dupla; este site e esta entrega pertencem a Beatrys Belo.
+- Integrante da dupla: Pedro Alexandre Zanetti
+- RA do integrante: 2026108365
+- Assinatura de Pedro Alexandre Zanetti: pendente de revisão e confirmação pelo próprio integrante.
 - Responsável pela rotação dos Client Secrets: Beatrys Belo
 - Data: 29/09/2026
 - Assinatura digitada: Beatrys Belo
