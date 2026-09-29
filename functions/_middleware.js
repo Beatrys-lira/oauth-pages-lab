@@ -15,7 +15,9 @@ async function schema(db) {
   await db.batch([
     db.prepare('CREATE TABLE IF NOT EXISTS oauth_transactions (id_hash TEXT PRIMARY KEY, provider TEXT NOT NULL, state_hash TEXT NOT NULL, nonce TEXT, code_verifier TEXT NOT NULL, expires_at INTEGER NOT NULL)'),
     db.prepare('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT, provider TEXT NOT NULL, provider_user_id TEXT NOT NULL, created_at INTEGER NOT NULL, UNIQUE(provider, provider_user_id))'),
-    db.prepare('CREATE TABLE IF NOT EXISTS sessions (id_hash TEXT PRIMARY KEY, user_id INTEGER NOT NULL, expires_at INTEGER NOT NULL, created_at INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES users(id))')
+    db.prepare('CREATE TABLE IF NOT EXISTS sessions (id_hash TEXT PRIMARY KEY, user_id INTEGER NOT NULL, expires_at INTEGER NOT NULL, created_at INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES users(id))'),
+    db.prepare('CREATE INDEX IF NOT EXISTS oauth_transactions_expiry ON oauth_transactions (expires_at)'),
+    db.prepare('CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions (expires_at)')
   ]);
 }
 function config(env, provider) {
