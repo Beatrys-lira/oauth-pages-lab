@@ -1,4 +1,4 @@
-import { me } from '../_middleware.js';
+import { me } from '../_shared/auth.js';
 
 export async function onRequest({ request, env }) {
   if (request.method !== 'GET') {

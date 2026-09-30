@@ -15,8 +15,10 @@ Projeto acadêmico de autenticação com Google e GitHub, desenvolvido com HTML,
 ## Estrutura
 
 - `public/`: página de login, dashboard e arquivos estáticos.
-- `functions/_middleware.js`: rotas de autenticação, validação dos provedores e controle de sessões.
-- `functions/api/`: endpoints auxiliares.
+- `functions/_shared/`: funções compartilhadas de criptografia, cookies, provedores, OIDC e sessão.
+- `functions/api/`: endpoints `health.js` e `me.js`.
+- `functions/oauth/`: início do login, callbacks e logout em arquivos próprios.
+- `functions/_middleware.js`: valida os caminhos e métodos OAuth e encaminha as requisições.
 - `public/entrega1/`: os oito arquivos de evidências exigidos pela atividade.
 
 Os arquivos estáticos são públicos. O acesso aos dados do usuário é validado no servidor; o redirecionamento da interface não substitui a proteção da API.
