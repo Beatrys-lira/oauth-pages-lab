@@ -24,7 +24,7 @@ export async function githubIdentity(token, cfg) {
     if (!response.ok) throw new Error('Perfil GitHub indisponível');
     const profile = await response.json();
     if (!Number.isSafeInteger(profile.id)) throw new Error('ID GitHub inválido');
-    return { id: String(profile.id), name: profile.name || profile.login, email: profile.email || null };
+    return { id: String(profile.id), name: profile.name || profile.login, email: profile.email || null, picture: typeof profile.avatar_url === 'string' ? profile.avatar_url : null };
   } finally {
     const revocation = await fetch(`https://api.github.com/applications/${encodeURIComponent(cfg.client)}/grant`, {
       method: 'DELETE', headers: { Authorization: `Basic ${btoa(`${cfg.client}:${cfg.secret}`)}`, Accept: 'application/vnd.github+json', 'User-Agent': 'oauth-pages-lab', 'Content-Type': 'application/json' }, body: JSON.stringify({ access_token: token })

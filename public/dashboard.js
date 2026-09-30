@@ -30,6 +30,46 @@ function renderBars(targetId, field, unit) {
   }
 }
 
+function renderProfile(user) {
+  const name = typeof user.name === 'string' && user.name.trim() ? user.name.trim() : 'Visitante';
+  const profile = document.getElementById('profile');
+  const button = document.getElementById('profile-button');
+  const card = document.getElementById('profile-card');
+  const photo = document.getElementById('profile-photo');
+  document.getElementById('profile-name').textContent = name;
+  document.getElementById('profile-initials').textContent = name.split(/\s+/).slice(0, 2).map(part => Array.from(part)[0]).join('').toLocaleUpperCase('pt-BR');
+  document.getElementById('profile-message').textContent = `Obrigado por se conectar, ${name}!`;
+  document.getElementById('profile-email').textContent = user.email || 'E-mail não disponibilizado pelo provedor.';
+  button.setAttribute('aria-label', `Ver perfil de ${name}`);
+  if (typeof user.picture === 'string') {
+    try {
+      const url = new URL(user.picture);
+      if (url.protocol === 'https:') {
+        photo.addEventListener('load', () => { photo.hidden = false; });
+        photo.addEventListener('error', () => { photo.hidden = true; });
+        photo.src = url.href;
+      }
+    } catch {}
+  }
+  function closeProfile() {
+    card.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+  }
+  button.addEventListener('click', () => {
+    card.hidden = !card.hidden;
+    button.setAttribute('aria-expanded', String(!card.hidden));
+  });
+  document.addEventListener('click', event => {
+    if (!profile.contains(event.target)) closeProfile();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !card.hidden) {
+      closeProfile();
+      button.focus();
+    }
+  });
+}
+
 async function checkSession() {
   const loading = document.getElementById('loading');
   try {
@@ -44,6 +84,7 @@ async function checkSession() {
       window.location.replace('/');
       return;
     }
+    renderProfile(session.user);
     renderBars('growth-bars', 'growth', '%');
     renderBars('openings-bars', 'openings', ' mil');
     loading.hidden = true;

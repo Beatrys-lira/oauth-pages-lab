@@ -11,8 +11,20 @@
   <div id="loading" class="loading" role="status">Consultando sua sessão...</div>
   <main id="dashboard" hidden>
     <header class="header">
-      <div class="brand"></strong><span>Engenharia de Software<small>Panorama em números</small></span></div>
-      <form action="/oauth/logout" method="post"><button type="submit">Sair</button></form>
+      <div class="brand"><span>Engenharia de Software<small>Panorama em números</small></span></div>
+      <div class="header-actions">
+        <div class="profile" id="profile">
+          <button type="button" class="profile-button" id="profile-button" aria-expanded="false" aria-controls="profile-card">
+            <span class="avatar"><span id="profile-initials" aria-hidden="true"></span><img id="profile-photo" alt="" referrerpolicy="no-referrer" hidden></span>
+            <span id="profile-name"></span>
+          </button>
+          <div class="profile-card" id="profile-card" hidden>
+            <p id="profile-message"></p>
+            <p class="profile-email" id="profile-email"></p>
+          </div>
+        </div>
+        <form action="/oauth/logout" method="post"><button type="submit">Sair</button></form>
+      </div>
     </header>
 
     <div class="content">
@@ -34,4 +46,7 @@
       </div>
 
      <p>Feito por Beatrys Belo RA: 2026108406</p>
+    </div>
+  </main>
+</body>
 </html>

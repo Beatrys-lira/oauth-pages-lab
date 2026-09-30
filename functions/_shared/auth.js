@@ -12,6 +12,7 @@ async function schema(db) {
     db.prepare('CREATE TABLE IF NOT EXISTS oauth_transactions (id_hash TEXT PRIMARY KEY, provider TEXT NOT NULL, state_hash TEXT NOT NULL, nonce TEXT, code_verifier TEXT NOT NULL, expires_at INTEGER NOT NULL)'),
     db.prepare('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT, provider TEXT NOT NULL, provider_user_id TEXT NOT NULL, created_at INTEGER NOT NULL, UNIQUE(provider, provider_user_id))'),
     db.prepare('CREATE TABLE IF NOT EXISTS sessions (id_hash TEXT PRIMARY KEY, issuer TEXT NOT NULL, subject TEXT NOT NULL, email TEXT, display_name TEXT, expires_at INTEGER NOT NULL, created_at INTEGER NOT NULL)'),
+    db.prepare('CREATE TABLE IF NOT EXISTS user_profiles (user_id INTEGER PRIMARY KEY REFERENCES users(id), picture TEXT)'),
     db.prepare('CREATE INDEX IF NOT EXISTS oauth_transactions_expiry ON oauth_transactions (expires_at)'),
     db.prepare('CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions (expires_at)')
   ]);
@@ -52,6 +53,8 @@ export async function callback(request, env, provider) {
   await authStep('D1_USUARIO', () => env.DB.prepare('INSERT INTO users (name,email,provider,provider_user_id,created_at) VALUES (?,?,?,?,?) ON CONFLICT(provider,provider_user_id) DO UPDATE SET name=excluded.name,email=excluded.email')
     .bind(identity.name, identity.email, provider, identity.id, now()).run());
   const user = await authStep('D1_CONSULTAR_USUARIO', () => env.DB.prepare('SELECT id FROM users WHERE provider=? AND provider_user_id=?').bind(provider, identity.id).first());
+  await authStep('D1_PERFIL', () => env.DB.prepare('INSERT INTO user_profiles (user_id,picture) VALUES (?,?) ON CONFLICT(user_id) DO UPDATE SET picture=excluded.picture')
+    .bind(user.id, identity.picture || null).run());
   const session = random(), sessionHash = await hash(session);
   const issuer = provider === 'google' ? 'https://accounts.google.com' : 'https://github.com';
   await authStep('D1_SESSAO', () => env.DB.prepare('INSERT INTO sessions (id_hash,issuer,subject,email,display_name,expires_at,created_at) VALUES (?,?,?,?,?,?,?)')
@@ -64,7 +67,7 @@ export async function me(request, env) {
   const session = cookies(request)['__Host-session'];
   if (!session) return json({ authenticated: false }, 401);
   await schema(env.DB);
-  const user = await env.DB.prepare("SELECT u.id,u.name,u.email,u.provider,u.provider_user_id,u.created_at FROM sessions s JOIN users u ON u.provider_user_id=s.subject AND ((s.issuer='https://accounts.google.com' AND u.provider='google') OR (s.issuer='https://github.com' AND u.provider='github')) WHERE s.id_hash=? AND s.expires_at>?").bind(await hash(session), now()).first();
+  const user = await env.DB.prepare("SELECT u.id,u.name,u.email,u.provider,u.provider_user_id,u.created_at,p.picture FROM sessions s JOIN users u ON u.provider_user_id=s.subject AND ((s.issuer='https://accounts.google.com' AND u.provider='google') OR (s.issuer='https://github.com' AND u.provider='github')) LEFT JOIN user_profiles p ON p.user_id=u.id WHERE s.id_hash=? AND s.expires_at>?").bind(await hash(session), now()).first();
   return user ? json({ authenticated: true, user }) : json({ authenticated: false }, 401);
 }
 export async function logout(request, env) {

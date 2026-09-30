@@ -29,3 +29,14 @@ h2 { margin: 0 0 8px; font: 400 25px Georgia, serif; }
 .source { margin: 20px 0 0; color: #68787b; font-size: 12px; line-height: 1.6; }
 .source a { color: #315d67; }
 @media (max-width: 760px) { .charts { grid-template-columns: 1fr; } .content { padding: 35px 18px; } .chart { padding: 23px; } }
+
+.header-actions { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.profile { position: relative; min-width: 0; }
+.header .profile-button { display: flex; align-items: center; gap: 10px; padding: 4px; border: 0; border-radius: 6px; text-align: left; }
+#profile-name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.avatar { position: relative; display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 38px; border-radius: 50%; overflow: hidden; background: #e6a17c; color: #1d3440; font-size: 14px; font-weight: 700; }
+.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.profile-card { position: absolute; top: calc(100% + 12px); right: 0; z-index: 2; width: min(290px, calc(100vw - 36px)); padding: 18px; border: 1px solid #dadfdc; border-radius: 8px; background: #fff; color: #1d3440; box-shadow: 0 5px 18px #1d34401a; overflow-wrap: anywhere; }
+.profile-card p { margin: 0; line-height: 1.5; font-size: 14px; }
+.profile-card .profile-email { margin-top: 8px; color: #627478; font-size: 13px; }
+@media (max-width: 560px) { .header { flex-wrap: wrap; padding: 15px 18px; gap: 16px; } .header-actions { width: 100%; justify-content: space-between; } .profile-card { left: 0; right: auto; } #profile-name { max-width: 190px; } }

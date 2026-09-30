@@ -14,5 +14,5 @@ export async function googleIdentity(token, client, nonce) {
   if (!jwk) throw new Error('Chave Google desconhecida');
   const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
   if (!await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, decode(parts[2]), encoder.encode(`${parts[0]}.${parts[1]}`))) throw new Error('Assinatura Google inválida');
-  return { id: String(claims.sub), name: claims.name || claims.email, email: claims.email };
+  return { id: String(claims.sub), name: claims.name || claims.email, email: claims.email, picture: typeof claims.picture === 'string' ? claims.picture : null };
 }
