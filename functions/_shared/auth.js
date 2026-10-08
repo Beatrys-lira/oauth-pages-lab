@@ -26,7 +26,10 @@ export async function start(request, env, provider) {
   const challenge = await hash(verifier);
   const url = new URL(provider === 'google' ? 'https://accounts.google.com/o/oauth2/v2/auth' : 'https://github.com/login/oauth/authorize');
   url.searchParams.set('client_id', client);
-  url.searchParams.set('redirect_uri', callback);
+  url.searchParams.set(
+  'redirect_uri',
+  provider === 'google' ? `${BASE}/auth/retorno-v2` : callback
+);
   url.searchParams.set('response_type', 'code');
   url.searchParams.set('state', state);
   url.searchParams.set('code_challenge', challenge);
