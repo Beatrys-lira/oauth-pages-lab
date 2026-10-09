@@ -1,6 +1,4 @@
-# Laboratório de autenticação
-
-**Dupla:** Beatrys Belo de Lira Esteves e Nicoly Ribeiro Barbosa ([Nicaribeiro](https://github.com/Nicaribeiro)).
+# Laboratório de autenticação | Frank
 
 Projeto acadêmico de autenticação com Google e GitHub, desenvolvido com HTML, CSS e JavaScript e publicado no Cloudflare Pages. Após o login, o usuário acessa um dashboard simples com gráficos relacionados à área de Engenharia de Software.
 
