@@ -47,9 +47,8 @@ Os testes simulados usaram Node.js em ambiente separado do computador da estudan
 - Nome da estudante: Beatrys Belo
 - RA: 2026108406
 - Participação: atividade realizada em dupla; este site e esta entrega pertencem a Beatrys Belo.
-- Integrante da dupla: Pedro Alexandre Zanetti
-- RA do integrante: 2026108365
-- Assinatura de Pedro Alexandre Zanetti: Pedro Zanetti
+- Integrante da dupla: Nicoly Ribeiro Barbosa
+- GitHub da integrante: Nicaribeiro
 - Responsável pela rotação dos Client Secrets: Beatrys Belo
 - Data: 29/09/2026
 - Assinatura digitada: Beatrys Belo
