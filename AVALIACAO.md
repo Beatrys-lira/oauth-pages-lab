@@ -33,7 +33,9 @@ Pendente: confirmar acesso Copilot ativo e testar SQL vulnerável e corrigido, r
 
 Migração inicial: migrations/0001_cria_notas.sql.
 
-Pendente: obter nome e ID do D1, configurar wrangler.toml, cadastrar CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID, publicar migrar.yml, adicionar a coluna por PR e confirmar PRAGMA no D1 remoto.
+Banco configurado: oauth-pages-bd, binding DB. wrangler.toml e migrar.yml publicados na branch de avaliação; os secrets Cloudflare foram cadastrados pela estudante. A migração 0002_adiciona_coluna.sql adiciona observacao à tabela notas. As duas migrações passaram no SQLite local, com a coluna confirmada por PRAGMA.
+
+Pendente: concluir a revisão por IA do PR, integrar, confirmar a execução remota e fazer um segundo merge sem migrations/ para demonstrar o filtro paths.
 
 ## Perguntas
 
