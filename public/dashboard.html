@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>Dashboard | Engenharia de Software</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/dashboard.css">
@@ -12,7 +13,7 @@
   <div id="loading" class="loading" role="status">Consultando sua sessão...</div>
   <main id="dashboard" hidden>
     <header class="header">
-      <div class="brand"><span>Engenharia de Software<small>Panorama em números</small></span></div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">ES</span><span>Engenharia de Software<small>Panorama em números</small></span></div>
       <div class="header-actions">
         <div class="profile" id="profile">
           <button type="button" class="profile-button" id="profile-button" aria-expanded="false" aria-controls="profile-card">
@@ -24,29 +25,70 @@
             <p class="profile-email" id="profile-email"></p>
           </div>
         </div>
-        <form action="/oauth/logout" method="post"><button type="submit">Sair</button></form>
+        <form action="/oauth/logout" method="post"><button type="submit" class="logout-button">Sair</button></form>
       </div>
     </header>
-
     <div class="content">
-      <p class="kicker">DADOS DE PESQUISA · 2025–2035</p>
-      <h1>Carreiras em tecnologia</h1>
-      <p class="subtitle">Projeções de ocupações ligadas a software nos Estados Unidos.</p>
-
+      <section class="welcome" aria-label="Boas-vindas">
+        <p id="welcome-name">Olá!</p>
+        <span>Que bom ter você aqui.</span>
+      </section>
+      <div class="page-heading">
+        <p class="kicker">ESTADOS UNIDOS · PROJEÇÕES 2025–2035</p>
+        <h1>Carreiras em tecnologia</h1>
+        <p class="subtitle">Um olhar sobre quatro áreas: quanto podem crescer e quantas oportunidades são projetadas por ano.</p>
+      </div>
       <div class="charts">
         <section class="chart" aria-labelledby="growth-title">
-          <h2 id="growth-title">Crescimento projetado</h2>
-          <p>Variação do emprego entre 2025 e 2035.</p>
+          <span class="chart-number">01 / CRESCIMENTO</span>
+          <h2 id="growth-title">Quais áreas podem crescer mais?</h2>
+          <p class="chart-description">Variação projetada do emprego entre 2025 e 2035.</p>
           <div id="growth-bars" class="bars"></div>
+          <p class="chart-note"><strong>Como ler:</strong> segurança tem a maior taxa entre as quatro áreas. Crescimento percentual compara o aumento com o tamanho inicial de cada ocupação.</p>
         </section>
         <section class="chart" aria-labelledby="openings-title">
-          <h2 id="openings-title">Aberturas por ano</h2>
-          <p>Média anual projetada, em milhares de vagas.</p>
+          <span class="chart-number">02 / OPORTUNIDADES</span>
+          <h2 id="openings-title">Onde há mais vagas projetadas?</h2>
+          <p class="chart-description">Média anual de aberturas, em milhares de vagas.</p>
           <div id="openings-bars" class="bars"></div>
+          <p class="chart-note"><strong>Como ler:</strong> desenvolvimento de software lidera em volume. As aberturas incluem expansão e reposição de pessoas que mudam de ocupação ou deixam o mercado.</p>
+        </section>
+        <section class="chart comparison-chart" aria-labelledby="comparison-title">
+          <span class="chart-number">03 / COMPARAÇÃO</span>
+          <h2 id="comparison-title">Crescer mais não significa ter mais vagas</h2>
+          <p class="chart-description">Cada ponto representa uma área. Mais à direita = mais vagas; mais acima = maior crescimento.</p>
+          <div class="scatter-container" id="comparison-plot"></div>
+          <p class="chart-note">Segurança aparece mais acima, enquanto software fica mais à direita. Os indicadores respondem a perguntas diferentes e devem ser lidos juntos.</p>
+        </section>
+        <section class="chart explore-chart" aria-labelledby="explore-title">
+          <span class="chart-number">04 / EXPLORE UMA ÁREA</span>
+          <h2 id="explore-title">O que esses números mostram?</h2>
+          <label for="area-select">Escolha uma área para conhecer</label>
+          <select id="area-select">
+            <option value="software">Desenvolvimento de software</option>
+            <option value="security">Segurança da informação</option>
+            <option value="qa" selected>Qualidade e testes</option>
+            <option value="web">Desenvolvimento web</option>
+          </select>
+          <div id="area-details" class="area-details" aria-live="polite" aria-atomic="true"></div>
         </section>
       </div>
-
-     <p>Feito por Beatrys Belo RA: 2026108406</p>
+      <details class="data-details">
+        <summary>Consultar os números da comparação</summary>
+        <div class="table-scroll">
+          <table>
+            <caption>Quatro ocupações selecionadas · Estados Unidos · 2025–2035</caption>
+            <thead><tr><th scope="col">Área</th><th scope="col">Crescimento</th><th scope="col">Vagas por ano</th></tr></thead>
+            <tbody id="data-table"></tbody>
+          </table>
+        </div>
+      </details>
+      <aside class="source" aria-label="Fonte dos dados">
+        <strong>Sobre os dados</strong>
+        <p>Fonte: <a href="https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm" target="_blank" rel="noopener noreferrer">Bureau of Labor Statistics (BLS), tabela 1.2</a>. Recorte de quatro ocupações, com nomes traduzidos para facilitar a leitura.</p>
+        <p>São projeções para os Estados Unidos, não vagas disponíveis hoje nem previsões para o Brasil. A comparação não representa todas as carreiras em tecnologia.</p>
+      </aside>
+      <footer class="page-footer">Beatrys Belo · RA 2026108406 <span aria-hidden="true">/</span> Nicoly Ribeiro Barbosa</footer>
     </div>
   </main>
 </body>
