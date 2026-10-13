@@ -3,7 +3,7 @@
 Projeto acadêmico de autenticação com Google e GitHub, desenvolvido com HTML, CSS e JavaScript e publicado no Cloudflare Pages. Após o login, o usuário acessa um dashboard simples com gráficos relacionados à área de Engenharia de Software.
 
 **Acesse o site:** [oauth-pages-lab-ec6.pages.dev](https://oauth-pages-lab-ec6.pages.dev/)
-
+**Dupla: @Nicaribeiro**
 ## Tecnologias
 
 - HTML, CSS e JavaScript, em arquivos separados.
