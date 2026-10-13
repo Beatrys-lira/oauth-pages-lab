@@ -23,7 +23,9 @@ A main está protegida com o check verificar obrigatório para todos. O PR #1 fi
 - Prova de git push direto recusado: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38411832786
 - Saída: `remote: error: GH006: Protected branch update failed for refs/heads/main.` e `HEAD -> main (protected branch hook declined)`.
 - O teste de push rodou em job temporário com contents: write. Após registrar a recusa, esse job foi removido e o CI final voltou a usar somente contents: read.
-- O estado de liberação será confirmado antes do merge.
+- PR liberado com os quatro checks aprovados e integrado: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1
+- CI final do PR: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38412162543
+- Revisão final do PR: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38412162179
 
 ## Tarefa 3 — Revisão por IA
 
@@ -47,7 +49,18 @@ Migração inicial: migrations/0001_cria_notas.sql.
 
 Banco configurado: oauth-pages-bd, binding DB. wrangler.toml e migrar.yml publicados na branch de avaliação; os secrets Cloudflare foram cadastrados pela estudante. A migração 0002_adiciona_coluna.sql adiciona observacao à tabela notas. As duas migrações passaram no SQLite local, com a coluna confirmada por PRAGMA.
 
-Pendente: concluir a revisão por IA do PR, integrar, confirmar a execução remota e fazer um segundo merge sem migrations/ para demonstrar o filtro paths.
+- Merge com migrações: https://github.com/Beatrys-lira/oauth-pages-lab/commit/47518513aaf43bd567d9f011c9707208f904d95e
+- Execução remota aprovada (tentativa 2): https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38412457034/attempts/2
+- As migrações 0001_cria_notas.sql e 0002_adiciona_coluna.sql foram aplicadas.
+- O step "Confirma estrutura da tabela notas" executou PRAGMA table_info(notas) no D1 remoto e retornou:
+  `{"cid":3,"name":"observacao","type":"TEXT","notnull":0,"dflt_value":null,"pk":0}`
+- A primeira tentativa falhou por caracteres extras em CLOUDFLARE_ACCOUNT_ID; o valor foi corrigido, e a segunda tentativa passou.
+- Segundo merge: PR de entrega deste arquivo, alterando apenas AVALIACAO.md. O filtro paths de migrar.yml exige mudanças em migrations/.
+- Histórico de migrações para verificar a ausência de nova execução: https://github.com/Beatrys-lira/oauth-pages-lab/actions/workflows/migrar.yml
+
+## Entrega
+
+Este arquivo reúne os links de execução, os comentários da IA, os erros observados e as quatro respostas. Os prints complementares do PR bloqueado e liberado foram capturados; as evidências obrigatórias estão nos links acima.
 
 ## Perguntas
 
