@@ -7,6 +7,8 @@ Dupla: Beatrys Belo e Nicoly Ribeiro Barbosa (Nicaribeiro).
 - Execução verde: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403056711
 - Execução vermelha proposital: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403429375
 - Execução vermelha no PR: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403435899
+- Execução após a correção: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403817794
+- Linha do log: `Parse error near line 1: near "TABL": syntax error`.
 - Erro introduzido: `CREATE TABL` no lugar de `CREATE TABLE`.
 - A etapa de migração falhou; a validação HTML foi interrompida nessa execução.
 - A migração é testada em SQLite local para detectar erros SQL antes de alterar o D1 remoto.
