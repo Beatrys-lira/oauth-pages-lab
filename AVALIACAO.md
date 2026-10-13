@@ -19,7 +19,11 @@ PR: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1
 
 A main está protegida com o check verificar obrigatório para todos. O PR #1 ficou bloqueado com o CI vermelho (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38408351137); o estado foi observado no GitHub e capturado em print. A migração foi corrigida na mesma branch.
 
-Pendente: registrar liberação após a correção e recusa de git push direto.
+- CI aprovado após a correção: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38411843773
+- Prova de git push direto recusado: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38411832786
+- Saída: `remote: error: GH006: Protected branch update failed for refs/heads/main.` e `HEAD -> main (protected branch hook declined)`.
+- O teste de push rodou em job temporário com contents: write. Após registrar a recusa, esse job foi removido e o CI final voltou a usar somente contents: read.
+- O estado de liberação será confirmado antes do merge.
 
 ## Tarefa 3 — Revisão por IA
 

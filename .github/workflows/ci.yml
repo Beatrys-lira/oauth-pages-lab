@@ -26,22 +26,3 @@ jobs:
       - name: Valida HTML
         run: npx --yes htmlhint "**/*.html"
 
-  testar-protecao:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/avaliacao-actions'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: Confirma recusa de push direto na main
-        run: |
-          if git push origin HEAD:main > push.log 2>&1; then
-            cat push.log
-            echo "::error::O push direto não foi recusado."; exit 1
-          fi
-          cat push.log
-          if ! grep -Eq 'GH006|GH013|protected branch|Changes must be made through a pull request|required status check' push.log; then
-            echo "::error::A recusa não demonstrou proteção da main."; exit 1
-          fi
