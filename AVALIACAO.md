@@ -27,7 +27,11 @@ Workflow implementado em .github/workflows/revisao-ia.yml.
 
 COPILOT_PAT foi cadastrado. O log detalhado mostrou que o modelo gpt-4.1 não estava disponível; a entrada model foi ajustada para usar o padrão do Copilot (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38410480268). A versão v1 indicada no enunciado usa GitHub Models; a revisão foi adaptada para a implementação Copilot do próprio GitHub, fixada em commit.
 
-Pendente: testar SQL vulnerável e corrigido, registrar erro de permissão e avaliar criticamente uma afirmação real da IA. Ausência de secret não é evidência do teste de permissão solicitado.
+A revisão publicou um comentário: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1#issuecomment-6147496997
+
+Crítica: a IA afirmou que model vazio poderia impedir a revisão. Isso é incorreto para a implementação fixada: ela permite que o Copilot CLI escolha o modelo padrão. O próprio comentário foi publicado por uma execução com model vazio, demonstrando que a configuração funciona.
+
+Pendente: confirmar os comentários sobre SQL vulnerável e corrigido e registrar erro de permissão.
 
 ## Tarefa 4 — Migrações remotas
 
@@ -53,4 +57,4 @@ As permissões explícitas limitam o GITHUB_TOKEN ao acesso necessário: leitura
 
 ### 4. A revisão da IA substitui o status check?
 
-Não. O comentário da IA é uma análise que pode conter erros ou omissões; o CI executa as verificações e fornece o check obrigatório. A crítica baseada na revisão real ainda está pendente.
+Não. O comentário da IA é uma análise que pode conter erros ou omissões; o CI executa as verificações e fornece o check obrigatório. A IA sugeriu que model vazio poderia impedir a revisão, mas a ação aceita usar o modelo padrão e publicou o comentário nessas condições. Esse erro mostra por que a revisão exige avaliação humana.
