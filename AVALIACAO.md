@@ -2,7 +2,7 @@
 
 Dupla: Beatrys Belo e Nicoly Ribeiro Barbosa (Nicaribeiro).
 
-## Tarefa 1 — CI
+##  CI
 
 - Execução verde: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403056711
 - Execução vermelha proposital: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38403429375
@@ -13,7 +13,7 @@ Dupla: Beatrys Belo e Nicoly Ribeiro Barbosa (Nicaribeiro).
 - A etapa de migração falhou; a validação HTML foi interrompida nessa execução.
 - A migração é testada em SQLite local para detectar erros SQL antes de alterar o D1 remoto.
 
-## Tarefa 2 — Proteção da main
+## Proteção da main
 
 PR: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1
 
@@ -27,7 +27,7 @@ A main está protegida com o check verificar obrigatório para todos. O PR #1 fi
 - CI final do PR: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38412162543
 - Revisão final do PR: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38412162179
 
-## Tarefa 3 — Revisão por IA
+## Revisão por IA
 
 Workflow implementado em .github/workflows/revisao-ia.yml.
 
@@ -43,7 +43,7 @@ Crítica: a IA afirmou que model vazio poderia impedir a revisão. Isso é incor
 - Linha do log: `GraphQL: Resource not accessible by integration (addComment)`.
 - A permissão foi restaurada após o teste.
 
-## Tarefa 4 — Migrações remotas
+## Migrações remotas
 
 Migração inicial: migrations/0001_cria_notas.sql.
 
