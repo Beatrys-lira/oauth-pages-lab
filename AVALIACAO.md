@@ -17,13 +17,17 @@ Dupla: Beatrys Belo e Nicoly Ribeiro Barbosa (Nicaribeiro).
 
 PR: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1
 
-Pendente: concluir confirmação administrativa do GitHub, salvar a regra exigindo PR e o check verificar e registrar bloqueio, liberação e recusa de push direto.
+A main está protegida com o check verificar obrigatório para todos. O PR #1 ficou bloqueado com o CI vermelho (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38408351137); o estado foi observado no GitHub e capturado em print. A migração foi corrigida na mesma branch.
+
+Pendente: registrar liberação após a correção e recusa de git push direto.
 
 ## Tarefa 3 — Revisão por IA
 
 Workflow implementado em .github/workflows/revisao-ia.yml.
 
-Pendente: cadastrar COPILOT_PAT para executar a revisão, testar SQL vulnerável e corrigido, registrar erro de permissão e avaliar criticamente uma afirmação real da IA. Ausência de secret não é evidência do teste de permissão solicitado.
+COPILOT_PAT foi cadastrado, mas o Copilot CLI encerrou com código 1 (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38408083987). A versão v1 indicada no enunciado usa GitHub Models; a revisão foi adaptada para a implementação Copilot do próprio GitHub, fixada em commit.
+
+Pendente: confirmar acesso Copilot ativo e testar SQL vulnerável e corrigido, registrar erro de permissão e avaliar criticamente uma afirmação real da IA. Ausência de secret não é evidência do teste de permissão solicitado.
 
 ## Tarefa 4 — Migrações remotas
 
