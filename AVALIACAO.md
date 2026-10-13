@@ -31,7 +31,11 @@ A revisão publicou um comentário: https://github.com/Beatrys-lira/oauth-pages-
 
 Crítica: a IA afirmou que model vazio poderia impedir a revisão. Isso é incorreto para a implementação fixada: ela permite que o Copilot CLI escolha o modelo padrão. O próprio comentário foi publicado por uma execução com model vazio, demonstrando que a configuração funciona.
 
-Pendente: confirmar os comentários sobre SQL vulnerável e corrigido e registrar erro de permissão.
+- Revisão do SQL vulnerável: https://github.com/Beatrys-lira/oauth-pages-lab/pull/1#issuecomment-6147520110
+- Revisão após correção com prepare().bind(): https://github.com/Beatrys-lira/oauth-pages-lab/pull/1#issuecomment-6147547424
+- Teste sem pull-requests: write: https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38411484218
+- Linha do log: `GraphQL: Resource not accessible by integration (addComment)`.
+- A permissão foi restaurada após o teste.
 
 ## Tarefa 4 — Migrações remotas
 
