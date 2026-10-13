@@ -131,19 +131,6 @@ function renderArea() {
   document.getElementById('area-details').replaceChildren(title, metrics, description, insight);
 }
 
-function renderTable() {
-  const rows = data.map(item => {
-    const row = document.createElement('tr');
-    for (const value of [item.name, `${format(item.growth)}%`, `${format(item.openings)} mil`]) {
-      const cell = document.createElement('td');
-      cell.textContent = value;
-      row.append(cell);
-    }
-    return row;
-  });
-  document.getElementById('data-table').replaceChildren(...rows);
-}
-
 async function checkSession() {
   const loading = document.getElementById('loading');
   try {
@@ -163,7 +150,6 @@ async function checkSession() {
     renderBars('openings-bars', 'openings', ' mil');
     renderComparison();
     renderArea();
-    renderTable();
     document.getElementById('area-select').addEventListener('change', renderArea);
     loading.hidden = true;
     document.getElementById('dashboard').hidden = false;

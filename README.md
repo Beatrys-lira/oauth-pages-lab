@@ -39,6 +39,10 @@ Também há uma revisão com IA nos pull requests. Quando uma alteração em `mi
 
 As respostas e os registros dos testes estão em [AVALIACAO.md](AVALIACAO.md). As evidências da primeira atividade de autenticação estão em [public/entrega1](public/entrega1).
 
+## Dados do painel
+
+Os gráficos usam um recorte de quatro ocupações da [tabela 1.2 do BLS](https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm), com projeções para os Estados Unidos entre 2025 e 2035. São estimativas de crescimento e aberturas anuais, não vagas disponíveis hoje nem projeções para o Brasil.
+
 ## Configuração
 
 O Cloudflare usa a pasta `public` e a branch `main`. As Functions precisam do binding `DB`, da variável `PUBLIC_BASE_URL` e dos IDs e segredos dos clientes Google e GitHub. Os segredos ficam nas configurações do Cloudflare.

@@ -47,18 +47,6 @@ select { width: 100%; padding: 12px 34px 12px 12px; border: 1px solid #d8cbd2; b
 .area-metric strong { display: block; font-size: 24px; color: #91435f; font-weight: 600; }
 .area-metric span { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .area-details .area-insight { padding: 14px; border-left: 3px solid #ba708b; background: #fcf7f9; color: #584750; border-radius: 0 8px 8px 0; }
-.data-details { margin: 24px 0; padding: 18px 22px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
-summary { cursor: pointer; color: #584750; font-size: 13px; font-weight: 600; }
-.table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
-caption { color: var(--muted); padding: 0 0 14px; text-align: left; line-height: 1.6; }
-th, td { padding: 12px; border-bottom: 1px solid #f1e7ec; text-align: left; }
-th { color: #584750; background: #fcf7f9; font-weight: 600; }
-td:not(:first-child) { white-space: nowrap; }
-.source { color: var(--muted); font-size: 11px; line-height: 1.75; }
-.source strong { color: #584750; }
-.source p { margin: 7px 0; }
-.source a { color: #91435f; text-underline-offset: 3px; }
 .page-footer { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 10px; line-height: 1.7; }
 .profile { position: relative; min-width: 0; }
 .profile-button { display: flex; align-items: center; gap: 9px; padding: 4px; border: 0; border-radius: 8px; background: transparent; color: #30262c; text-align: left; cursor: pointer; }
