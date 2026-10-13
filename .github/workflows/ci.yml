@@ -1,0 +1,28 @@
+name: ci
+on:
+  push:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Procura segredos versionados
+        run: |
+          if git grep -qE "GOCSPX-|client_secret *= *['\"][^'\"]+" -- . ':!*.md' ':!.github/workflows/ci.yml'; then
+            echo "::error::Possível segredo no repositório"; exit 1
+          fi
+      - name: Aplica as migrações D1 em um SQLite local
+        run: |
+          command -v sqlite3 >/dev/null || (sudo apt-get update && sudo apt-get install -y sqlite3)
+          for f in migrations/*.sql; do sqlite3 -bail teste.db < "$f"; done
+          sqlite3 teste.db ".tables"
+      - name: Valida HTML
+        run: npx --yes htmlhint "**/*.html"
+
