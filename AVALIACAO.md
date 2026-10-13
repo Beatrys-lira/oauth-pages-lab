@@ -55,7 +55,9 @@ Banco configurado: oauth-pages-bd, binding DB. wrangler.toml e migrar.yml public
 - O step "Confirma estrutura da tabela notas" executou PRAGMA table_info(notas) no D1 remoto e retornou:
   `{"cid":3,"name":"observacao","type":"TEXT","notnull":0,"dflt_value":null,"pk":0}`
 - A primeira tentativa falhou por caracteres extras em CLOUDFLARE_ACCOUNT_ID; o valor foi corrigido, e a segunda tentativa passou.
-- Segundo merge: PR de entrega deste arquivo, alterando apenas AVALIACAO.md. O filtro paths de migrar.yml exige mudanças em migrations/.
+- Segundo merge (somente documentação): https://github.com/Beatrys-lira/oauth-pages-lab/pull/3
+- Commit desse merge: https://github.com/Beatrys-lira/oauth-pages-lab/commit/f447bf433c4eaf3a7ff6b54ad93efd3b66cb0b09
+- A consulta de execuções para esse commit retornou apenas ci (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38413896824), sem migrar. O filtro paths exige mudanças em migrations/.
 - Histórico de migrações para verificar a ausência de nova execução: https://github.com/Beatrys-lira/oauth-pages-lab/actions/workflows/migrar.yml
 
 ## Entrega
