@@ -1,0 +1,12 @@
+name = "oauth-pages-lab"
+compatibility_date = "2026-10-01"
+pages_build_output_dir = "./public"
+
+[vars]
+PUBLIC_BASE_URL = "https://oauth-pages-lab-ec6.pages.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "oauth-pages-bd"
+database_id = "5b732c2e-41ec-4805-b90b-2c8ccb4aae9e"
+migrations_dir = "migrations"
