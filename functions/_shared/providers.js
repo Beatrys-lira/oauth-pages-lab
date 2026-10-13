@@ -3,7 +3,12 @@ export const BASE = 'https://oauth-pages-lab-ec6.pages.dev';
 export function config(env, provider) {
   const client = provider === 'google' ? env.GOOGLE_CLIENT_ID : env.GITHUB_CLIENT_ID;
   const secret = provider === 'google' ? env.GOOGLE_CLIENT_SECRET : env.GITHUB_CLIENT_SECRET;
-  if (!env.DB || !client || !secret || env.PUBLIC_BASE_URL !== BASE) throw new Error('Configuração de autenticação incompleta');
+  const missing = !env.DB ? 'DB' : !client ? `${provider.toUpperCase()}_CLIENT_ID` : !secret ? `${provider.toUpperCase()}_CLIENT_SECRET` : env.PUBLIC_BASE_URL !== BASE ? 'PUBLIC_BASE_URL' : null;
+  if (missing) {
+    const error = new Error('Configuração de autenticação incompleta');
+    error.authStage = `CONFIG_${missing}`;
+    throw error;
+  }
   return { client, secret, callback: `${BASE}/oauth/callback/${provider}` };
 }
 export async function exchange(provider, cfg, code, verifier) {
