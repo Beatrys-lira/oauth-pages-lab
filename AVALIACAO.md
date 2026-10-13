@@ -25,9 +25,9 @@ Pendente: registrar liberação após a correção e recusa de git push direto.
 
 Workflow implementado em .github/workflows/revisao-ia.yml.
 
-COPILOT_PAT foi cadastrado, mas o Copilot CLI encerrou com código 1 (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38408083987). A versão v1 indicada no enunciado usa GitHub Models; a revisão foi adaptada para a implementação Copilot do próprio GitHub, fixada em commit.
+COPILOT_PAT foi cadastrado. O log detalhado mostrou que o modelo gpt-4.1 não estava disponível; a entrada model foi ajustada para usar o padrão do Copilot (https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38410480268). A versão v1 indicada no enunciado usa GitHub Models; a revisão foi adaptada para a implementação Copilot do próprio GitHub, fixada em commit.
 
-Pendente: confirmar acesso Copilot ativo e testar SQL vulnerável e corrigido, registrar erro de permissão e avaliar criticamente uma afirmação real da IA. Ausência de secret não é evidência do teste de permissão solicitado.
+Pendente: testar SQL vulnerável e corrigido, registrar erro de permissão e avaliar criticamente uma afirmação real da IA. Ausência de secret não é evidência do teste de permissão solicitado.
 
 ## Tarefa 4 — Migrações remotas
 
