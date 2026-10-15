@@ -81,3 +81,9 @@ As permissões explícitas limitam o GITHUB_TOKEN ao acesso necessário: leitura
 ### 4. A revisão da IA substitui o status check?
 
 Não. O comentário da IA é uma análise que pode conter erros ou omissões; o CI executa as verificações e fornece o check obrigatório. A IA sugeriu que model vazio poderia impedir a revisão, mas a ação aceita usar o modelo padrão e publicou o comentário nessas condições. Esse erro mostra por que a revisão exige avaliação humana.
+
+## Conferência das evidências em 15/10/2026
+
+O PDF exige links das execuções e registros dos resultados; as capturas complementam esses links.
+
+O bloqueio foi repetido no [PR #12](https://github.com/Beatrys-lira/oauth-pages-lab/pull/12), com um arquivo SQL temporário e inválido. O [CI do PR falhou](https://github.com/Beatrys-lira/oauth-pages-lab/actions/runs/38820830248), os dois checks verificar ficaram vermelhos e o botão de merge foi desabilitado. O arquivo de teste foi removido da mesma branch antes da integração.
